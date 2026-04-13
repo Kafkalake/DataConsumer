@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.hooniegit</groupId>
 	<artifactId>DataConsumer</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<name>DataConsumer</name>
 	<description>Convert &amp; Branch Out Datas Received from Apache Kafka Broker</description>
 	<url/>
@@ -43,16 +43,6 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

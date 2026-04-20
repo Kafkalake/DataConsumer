@@ -31,6 +31,7 @@ public class KafkaConsumerConfig {
         configurer.configure(factory, kafkaConsumerFactory
                 .getIfAvailable(() -> new DefaultKafkaConsumerFactory<>(kafkaProperties.buildConsumerProperties(sslBundles))));
         factory.setConcurrency(64);
+        factory.setBatchListener(true);
 
         return factory;
     }

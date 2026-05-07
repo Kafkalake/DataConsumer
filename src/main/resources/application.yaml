@@ -1,27 +1,35 @@
+
 spring:
   application:
     name: DataConsumer
 
-  kafka:
-    bootstrap-servers: workspace:9092
-    consumer:
-      group-id: AutoGeneration
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
-      enable-auto-commit: true
-      auto-offset-reset: latest
-      properties:
-        partition.assignment.strategy: org.apache.kafka.clients.consumer.CooperativeStickyAssignor
-        # 2. 브로커로부터 데이터를 가져올 때 최소/최대 대기 시간 및 바이트 설정
-        fetch.min.bytes: 1048576       # 1MB (데이터가 이 크기만큼 쌓일 때까지 대기)
-        fetch.max.wait.ms: 500          # 최대 500ms 대기 (초당 18만 건 환경이므로 즉시 채워짐)
-        fetch.max.bytes: 419430400           # 400MB (브로커 최대 수신량)
-        max.partition.fetch.bytes: 419430400 # 400MB (파티션당 최대 수신량)
-        max.poll.records: 1000          # 한 번에 처리할 최대 레코드 수
-
-        # 3. 소켓 수신 버퍼 크기 확장 (OS 네트워크 버퍼)
-        receive.buffer.bytes: 419430400  # 400MB
-
-aeron:
-  dir: aeron-sbe-ipc
-  stream-id: 10
+#  kafka:
+#    bootstrap-servers: workspace:9092
+#    consumer:
+#      group-id: AutoGeneration
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+#      enable-auto-commit: true
+#      auto-offset-reset: latest
+#      properties:
+#        partition.assignment.strategy: org.apache.kafka.clients.consumer.CooperativeStickyAssignor
+#        # 2. 브로커로부터 데이터를 가져올 때 최소/최대 대기 시간 및 바이트 설정
+#        fetch.min.bytes: 1048576       # 1MB (데이터가 이 크기만큼 쌓일 때까지 대기)
+#        fetch.max.wait.ms: 500          # 최대 500ms 대기 (초당 18만 건 환경이므로 즉시 채워짐)
+#        fetch.max.bytes: 419430400           # 400MB (브로커 최대 수신량)
+#        max.partition.fetch.bytes: 419430400 # 400MB (파티션당 최대 수신량)
+#        max.poll.records: 2000          # 한 번에 처리할 최대 레코드 수
+#
+#        # 3. 소켓 수신 버퍼 크기 확장 (OS 네트워크 버퍼)
+#        receive.buffer.bytes: 419430400  # 400MB
+#
+#aeron:
+#  server:
+#    location: aeron-sbe-ipc-test
+#    stream: 10
+#
+#LMAX:
+#  list:
+#    size: 1
+#  buffer:
+#    multiplier: 4 # 4 설정 시 아슬아슬하게 안 밀림

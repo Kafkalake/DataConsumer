@@ -1,4 +1,4 @@
-package com.hooniegit.DataConsumer.Kafka;
+package com.hooniegit.DataConsumer.service.Kafka;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;

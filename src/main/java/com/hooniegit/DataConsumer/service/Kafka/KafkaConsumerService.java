@@ -1,10 +1,10 @@
-package com.hooniegit.DataConsumer.Kafka;
+package com.hooniegit.DataConsumer.service.Kafka;
 
-import com.hooniegit.DataConsumer.LMAX.RecordsEvent;
-import com.lmax.disruptor.RingBuffer;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
+import com.hooniegit.Xtream.Tools.StreamManager;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.TopicPartition;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.listener.ConsumerSeekAware;
 import org.springframework.stereotype.Service;
@@ -13,10 +13,11 @@ import java.util.Map;
 @Service
 public class KafkaConsumerService implements ConsumerSeekAware {
 
-    private final RingBuffer<RecordsEvent> ringBuffer;
+    private final StreamManager<byte[]> manager;
 
-    public KafkaConsumerService(RingBuffer<RecordsEvent> ringBuffer) {
-        this.ringBuffer = ringBuffer;
+    @Autowired
+    public KafkaConsumerService(StreamManager<byte[]> manager) {
+        this.manager = manager;
     }
 
     /**
@@ -28,15 +29,9 @@ public class KafkaConsumerService implements ConsumerSeekAware {
     }
 
     private void task(ConsumerRecords<String, byte[]> records) {
-
-        for (ConsumerRecord<String, byte[]> record: records) {
-            long sequence = ringBuffer.next();
-            RecordsEvent event = ringBuffer.get(sequence);
-            event.setRecord(record);
-            ringBuffer.publish(sequence);
+        for (ConsumerRecord<String, byte[]> record : records) {
+            this.manager.getNextStream().publishInitialEvent(record.value());
         }
-
-
     }
 
     /**
